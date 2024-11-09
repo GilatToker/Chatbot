@@ -1,6 +1,6 @@
 ## 07.2024
 
-# Project Title: Conversational Agent for E-commerce
+# Conversational Agent for E-commerce
 
 ## Project Overview
 his repository contains the files and documentation for the development of a conversational agent (chatbot) aimed at handling customer support queries for an e-commerce platform. The main goal of this project is to create a chatbot using a Large Language Model (LLM) that can manage multi-turn conversations effectively and provide accurate responses regarding order status, return policies, and general customer inquiries. 
