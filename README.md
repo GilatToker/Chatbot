@@ -3,7 +3,7 @@
 <table>
   <tr>
     <td>
-      <img src="Screenshot.jpg" alt="Alternative text for the image" title="Optional title attribute" width="150"/>
+      <img src="Screenshot.png" alt="Alternative text for the image" title="Optional title attribute" width="150"/>
     </td>
   </tr>
 </table> 
