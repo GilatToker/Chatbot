@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BestCompany ChatBot</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom, #f0f4f8, #d9e2ec, #bcccdc);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .header {
+            text-align: center;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            width: 90%;
+            max-width: 600px;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            color: #333;
+        }
+        .header h4 {
+            margin: 5px 0 15px;
+            color: #555;
+            font-size: 18px;
+        }
+        .header img {
+            width: 80px;
+            height: auto;
+            margin-top: 10px;
+        }
+        .container {
+            width: 90%;
+            max-width: 600px;
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            overflow: hidden;
+            flex-grow: 1;
+        }
+        #chatbox {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding-right: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 10px;
+            max-height: 500px;
+            transition: all 0.3s ease;
+        }
+        #userInput {
+            display: flex;
+            padding: 10px;
+            background-color: #fff;
+            border-top: 1px solid #ddd;
+            border-radius: 0 0 15px 15px;
+        }
+        #textInput {
+            flex-grow: 1;
+            border: none;
+            border-bottom: 2px solid #333;
+            font-size: 16px;
+            padding: 10px;
+            border-radius: 5px 0 0 5px;
+            transition: all 0.3s ease;
+        }
+        #textInput:focus {
+            outline: none;
+            border-bottom-color: #007bff;
+        }
+        #sendButton {
+            width: 80px;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        #sendButton:hover {
+            background-color: #0056b3;
+        }
+        .userText, .botText {
+            font-size: 16px;
+            margin: 10px 0;
+            display: flex;
+        }
+        .userText {
+            justify-content: flex-end;
+        }
+        .userText span {
+            background-color: #007bff;
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 80%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .botText {
+            justify-content: flex-start;
+        }
+        .botText span {
+            background-color: #f0f4f8;
+            color: #333;
+            padding: 10px;
+            border-radius: 10px;
+            max-width: 80%;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #fff;
+            width: 100%;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 15px;
+            margin-top: 20px;
+        }
+        .footer p {
+            margin: 0;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>BestCompany ChatBot</h1>
+        <h4>Please start your personalized interaction with the chatbot</h4>
+        <img src="static/chatbot1.png" alt="Chatbot Image">
+    </div>
+    <div class="container">
+        <div class="chat-container">
+            <div id="chatbox">
+                <p class="botText">
+                    <span>Welcome to BestCompany! I'm Anne, your virtual assistant. This is an open-language chat, but I can also handle some requests automatically. Common actions I can assist with include checking order status, providing return policy information, and connecting you with a human representative. How can I help you today?</span>
+                </p>
+            </div>
+            <div id="userInput">
+                <input id="textInput" type="text" name="msg" placeholder="Type your message..." />
+                <button id="sendButton" onclick="getBotResponse()">Send</button>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <p>&copy; 2024 BestCompany. All rights reserved.</p>
+    </div>
+    <script>
+        function getBotResponse() {
+            var rawText = $("#textInput").val();
+            if (rawText.trim() !== "") {
+                var userHtml = '<p class="userText"><span>' + rawText + "</span></p>";
+                $("#textInput").val("");
+                $("#chatbox").append(userHtml);
+                var chatbox = document.getElementById("chatbox");
+                chatbox.scrollTop = chatbox.scrollHeight;
+                $.get("/get", { msg: rawText }).done(function (data) {
+                    var botHtml = '<p class="botText"><span>' + data + "</span></p>";
+                    $("#chatbox").append(botHtml);
+                    chatbox.scrollTop = chatbox.scrollHeight;
+                });
+            }
+        }
+        $("#textInput").keypress(function (e) {
+            if (e.which == 13) {
+                getBotResponse();
+            }
+        });
+    </script>
+</body>
+</html>
+
+
