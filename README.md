@@ -10,7 +10,8 @@ The goal of this project is to develop a chatbot capable of handling customer in
 - Order Status: Retrieve and communicate the status of a customer’s order.
 - Return Policies: Provide specific details about return policies, including conditions for refunds and non-returnable items.
 - Requesting a Human Representative: When needed, assist users in connecting with a human representative for more personalized help.
-Additional Functionalities
+
+### Additional Functionalities
 To enhance the user experience, we implemented a few additional features such as:
 
 - Suggesting a human representative when detecting customer dissatisfaction.
