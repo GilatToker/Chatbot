@@ -29,10 +29,11 @@ The chatbot's performance was evaluated using a manually created dataset that in
 - Relevance: How well the response matched the user's query.
 - User Satisfaction: The overall likelihood of the user being satisfied with the response.
 
+## Below is a preview of the chatbot interface.
 <table>
   <tr>
     <td>
-      <img src="Screenshot.png" width="650"/>
+      <img src="Screenshot.png" width="550"/>
     </td>
   </tr>
 </table> 
